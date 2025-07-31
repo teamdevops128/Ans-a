@@ -1,0 +1,28 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  ssh_key: $(SSH_PRIVATE_KEY)
+
+steps:
+  - checkout: self
+
+  - task: InstallSSHKey@0
+    inputs:
+      knownHostsEntry: 'your.azure.vm.ip'
+      sshPublicKey: $(SSH_PUBLIC_KEY)
+      sshKeySecureFile: 'id_rsa'  # Upload this as a secure file in Azure DevOps
+
+  - script: |
+      sudo apt update
+      sudo apt install -y ansible
+    displayName: 'Install Ansible'
+
+  - script: |
+      ansible-playbook -i ansible/inventory ansible/playbook.yml
+    displayName: 'Run Ansible Playbook'
