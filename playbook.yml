@@ -1,0 +1,17 @@
+---
+- name: Install NGINX on Azure VM
+  hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Ensure NGINX is installed
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Ensure NGINX is running
+      service:
+        name: nginx
+        state: started
+        enabled: true
