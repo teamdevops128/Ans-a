@@ -1,17 +1,16 @@
 ---
-- name: Install NGINX on Azure VM
+- name: Install and configure Lighttpd on RHEL
   hosts: webservers
   become: yes
 
   tasks:
-    - name: Ensure NGINX is installed
-      apt:
-        name: nginx
+    - name: Install Lighttpd
+      dnf:
+        name: lighttpd
         state: present
-        update_cache: yes
 
-    - name: Ensure NGINX is running
-      service:
-        name: nginx
+    - name: Enable and start Lighttpd
+      systemd:
+        name: lighttpd
         state: started
-        enabled: true
+        enabled: yes
