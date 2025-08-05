@@ -16,7 +16,7 @@ jobs:
       inputs:
         targetType: 'inline'
         script: |
-          VM_IP="10.217.215.87"  # Replace with your actual private IP
+          VM_IP="***"
           
           echo "Checking if port 22 is open on $VM_IP..."
           
