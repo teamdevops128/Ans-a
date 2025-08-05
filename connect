@@ -1,0 +1,28 @@
+trigger:
+  - main
+
+pool:
+  name: 'infra-pf-adopl-core-01-centralus-nprod'
+
+variables:
+  ANSIBLE_HOST_KEY_CHECKING: "False"
+
+jobs:
+- job: CheckPort22Connectivity
+  displayName: "Check SSH Port 22 to Private VM"
+  steps:
+    - task: Bash@3
+      displayName: "Verify SSH (Port 22) Access to Private VM"
+      inputs:
+        targetType: 'inline'
+        script: |
+          VM_IP="10.217.215.87"  # Replace with your actual private IP
+          
+          echo "Checking if port 22 is open on $VM_IP..."
+          
+          if timeout 5 bash -c "</dev/tcp/$VM_IP/22"; then
+            echo "✅ Port 22 is open on $VM_IP"
+          else
+            echo "❌ Port 22 is NOT open on $VM_IP"
+            exit 1
+          fi
