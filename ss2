@@ -1,1 +1,30 @@
 
+trigger:
+  - main
+
+pool:
+  name: 'infra-pf-adopl-core-01-centralus-nprod'
+
+variables:
+  ANSIBLE_HOST_KEY_CHECKING: "False"
+  VM_IP: "10.217.215.87"
+  SSH_USER: "amohiu2e"  # Update this if incorrect
+
+jobs:
+- job: TestSSH
+  displayName: "Test SSH and Check Python"
+  steps:
+  
+    - task: DownloadSecureFile@1
+      name: downloadSSHKey
+      inputs:
+        secureFile: 'id_rsa'  # Name of the private key in the Secure Files tab
+
+    - script: |
+        mkdir -p ~/.ssh
+        cp "$(Agent.TempDirectory)/id_rsa" ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+
+        echo "Connecting to $VM_IP using SSH..."
+        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${SSH_USER}@$VM_IP "python3 --version || python --version"
+      displayName: "SSH to RedHat VM and Check Python Version"
