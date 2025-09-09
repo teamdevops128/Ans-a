@@ -1,0 +1,31 @@
+Review the Ansible playbooks converted from existing Chef cookbooks to ensure correctness, consistency, and compliance with organizational standards before moving to production.
+
+Story Description
+
+As a DevOps Engineer,
+I want to review the Ansible playbooks that were converted from Chef cookbooks,
+So that I can ensure functionality parity, security, and adherence to best practices before integrating them into CI/CD pipelines.
+
+The review will focus on:
+
+Validating that the Ansible playbooks achieve the same outcomes as the original Chef cookbooks.
+
+Checking for syntax, idempotency, and Ansible best practices.
+
+Verifying that sensitive data is handled securely (e.g., using Ansible Vault).
+
+Ensuring the playbooks comply with internal standards, naming conventions, and reusability guidelines.
+
+Acceptance Criteria
+
+✅ All Ansible playbooks run successfully without errors in a test environment.
+
+✅ Converted playbooks replicate the same configuration/state as the original Chef cookbooks.
+
+✅ No hardcoded secrets or credentials are present — sensitive data is encrypted via Ansible Vault or external secret manager.
+
+✅ Playbooks follow Ansible best practices (idempotency, use of roles, modular structure, YAML lint compliance).
+
+✅ Review checklist is completed and documented in Confluence/Jira.
+
+✅ Any gaps or deviations from Chef functionality are documented and either fixed or raised as follow-up tasks.
