@@ -1,0 +1,9 @@
+ansible_pipeline_templates
+ansible_repo_template
+profile_wag_ansible_hadoop
+profile_wag_ansible_infra_base
+profile_wag_test_sa
+wag_ado_agent
+wag_ado_dynatrace_agent
+wag_ansible_python3
+wag_infra_operations_prereqs
